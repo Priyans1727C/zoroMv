@@ -16,3 +16,8 @@ export const fetchSeriesHome = async (category="popular") => {
   return data.results;
 }
 
+export const featchSearchHome = async (input,page=1) => {
+  const {data} = await tmdbApi.get(`search/multi`,{params:{query:input,page:page}});
+  return data.results;
+}
+

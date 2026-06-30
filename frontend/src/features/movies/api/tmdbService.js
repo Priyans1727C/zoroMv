@@ -10,7 +10,18 @@ export const fetchCategoriesMovies = async (category="popular",page=1) => {
   return data.results;
 };
 
-export const featchSearchMovies = async (input,page=1) => {
+export const fetchMovieDetails = async (movieId) => {
+  const {data} = await tmdbApi.get(`/movie/${movieId}`);
+  return data.results;
+};
+
+export const fetchMoviesRecommendations = async (movieId,page=1) => {
+  const {data} = await tmdbApi.get(`/movie/${movieId}/recommendations`,{params:{page:page}});
+  return data.results;
+};
+
+
+export const fetchSearchMovies = async (input,page=1) => {
   const {data} = await tmdbApi.get(`/search/movie`,{params:{ query:input,page:page}});
   return data.results;
-}
+};

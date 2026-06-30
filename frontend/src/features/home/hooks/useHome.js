@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome } from "../api/tmdbService";
+import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome } from "../api/tmdbService";
 
 
 // type: "all|movie|"tv"   ,       time_window: "day|week"
@@ -31,4 +31,12 @@ export const useSeriesHome = (type="popular") => {
   })
 };
 
+export const useSearchHome = (input,page=1) => {
+  return useQuery({
+    queryKey:['search',page],
+    queryFn: () => featchSearchHome(input,page),
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
+  })
+}
 
