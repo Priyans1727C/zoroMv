@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../features/shared/layouts/MainLayout";
 import Home from "../pages/root";
 
 function App() {
@@ -7,8 +7,6 @@ function App() {
      <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
-       
-        
       </Route>
     </Routes>
   )
