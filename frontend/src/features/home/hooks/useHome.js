@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome } from "../api/tmdbService";
-
+import { trendingMapper } from "../../shared/mapper/home";
 
 // type: "all|movie|"tv"   ,       time_window: "day|week"
 export const useTrendingHome = (mediaType="movie",time_window="day") => {
   return useQuery({
     queryKey: ['trending',mediaType],  
     queryFn: () =>  fetchTrendingHome(mediaType,time_window),
+    select: (response) => response.results.map(trendingMapper),
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   });

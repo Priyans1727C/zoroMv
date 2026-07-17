@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Outlet } from "react-router";
 import TopBar from "../components/TopBar";
 import Sidebar from "../components/SideBar";
+import DynamicIsland from "../components/DynamicIsland";
 
 function MainLayout() {
     const [category, setCategory] = useState("All");
@@ -15,6 +16,9 @@ function MainLayout() {
             </div>
 
             {/* Mobile / tablet top navigation — Pending */}
+            <div className="fixed inset-x-0 top-0 z-50 lg:hidden">
+                <DynamicIsland visible />
+            </div>
             
 
             <div className="mx-auto flex max-w-[1600px] gap-6 p-3 sm:p-4 lg:p-6">
