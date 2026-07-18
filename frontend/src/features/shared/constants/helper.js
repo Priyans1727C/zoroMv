@@ -16,7 +16,7 @@ export const GENRES = {
   28: "Action",
   36: "History",
   53: "Thriller",
-  878: "Science Fiction",
+  878: "Sci-Fi",
   10402: "Music",
   10749: "Romance",
   10752: "War",

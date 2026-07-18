@@ -13,20 +13,22 @@ export const useTrendingHome = (mediaType="movie",time_window="day") => {
   });
 };
 
-
-export const useMoviesHome = (type="popular") => {
+//
+export const useMoviesHome = (category="popular") => {
   return useQuery({
-    queryKey: ['movies', type],
-    queryFn: () => fetchMoviesHome(type),
+    queryKey: ['movies', category],
+    queryFn: () => fetchMoviesHome(category),
+    select: (response) => response.results.map(trendingMapper),
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   })
 };
 
-export const useSeriesHome = (type="popular") => {
+export const useSeriesHome = (category="popular") => {
   return useQuery({
-    queryKey: ['series',type],
-    queryFn: () => fetchSeriesHome(type),
+    queryKey: ['series',category],
+    queryFn: () => fetchSeriesHome(category),
+    select: (response) => response.results.map(trendingMapper),
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   })

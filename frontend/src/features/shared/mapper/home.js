@@ -2,9 +2,10 @@ import { GENRES } from "../constants/helper";
 
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 const BANNER_IMAGE = "https://image.tmdb.org/t/p/w1920";
+
 export const trendingMapper = (item) => ({
     id: item.id,
-    type: item.media_type,
+    type: item.media_type??"NA",
     title: item.title ?? item.name,
     originalTitle: item.original_title ?? item.original_name,
     overview: item.overview,

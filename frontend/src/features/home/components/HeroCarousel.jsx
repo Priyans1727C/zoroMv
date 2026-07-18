@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState,useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
 import { Play, Flame, Info, MoreHorizontal } from "lucide-react";
-
 
 const AUTO_ADVANCE_MS = 6000;
 const DRAG_THRESHOLD = 60;
@@ -66,11 +65,12 @@ export default function HeroCarousel({slides}) {
             transition={{ duration: 6, ease: "linear" }}
             className="pointer-events-none absolute inset-0"
           >
-            <img
+            <LazyImage
               src={slide.backdropUrl}
               alt={slide.title}
-              className="select-none h-full w-full object-cover object-center"
+              eager={index === 0}
               draggable={false}
+              imgClassName="select-none object-cover object-center"
             />
           </motion.div>
 
@@ -185,3 +185,67 @@ export default function HeroCarousel({slides}) {
     </motion.section>
   );
 }
+
+
+export  function LazyImage({
+  src,
+  alt,
+  className = "",
+  imgClassName = "",
+  eager = false,
+  draggable,
+  onLoaded,
+}) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(eager);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (eager || inView) return;
+    const node = ref.current;
+    if (!node) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setInView(true);
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [eager, inView]);
+
+  return (
+    <div ref={ref} className={`relative h-full w-full overflow-hidden ${className}`}>
+      {!loaded && (
+        <div className="absolute inset-0 overflow-hidden bg-surface-2/40">
+          <div className="shimmer absolute inset-0" />
+        </div>
+      )}
+      {inView && (
+        <motion.img
+          src={src}
+          alt={alt}
+          draggable={draggable}
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
+          onLoad={() => {
+            setLoaded(true);
+            onLoaded?.();
+          }}
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: loaded ? 1 : 0, scale: loaded ? 1 : 1.04 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className={`h-full w-full object-cover ${imgClassName}`}
+        />
+      )}
+    </div>
+  );
+}
+
+
