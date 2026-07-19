@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome } from "../api/tmdbService";
+import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome,fetchById, fetchCasts } from "../api/tmdbService";
 import { trendingMapper } from "../../shared/mapper/home";
+import { cardDetailMapper,castMapper } from "../../shared/mapper/shared";
 
 // type: "all|movie|"tv"   ,       time_window: "day|week"
 export const useTrendingHome = (mediaType="movie",time_window="day") => {
@@ -42,4 +43,27 @@ export const useSearchHome = (input,page=1) => {
     gcTime: 1000 * 60,
   })
 }
+
+// mediaType: "movie"|"tv"   
+export const useFetchById = (mediaType,id) => {
+  return useQuery({
+    queryKey:['search',mediaType,id],
+    queryFn: () => fetchById(mediaType,id),
+    select: (response) => cardDetailMapper(response, mediaType),
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
+  })
+}
+
+
+export const useFetchCasts = (mediaType,id) => {
+  return useQuery({
+    queryKey:['casts',mediaType,id],
+    queryFn: () => fetchCasts(mediaType,id),
+    select: (response) => response.cast.map(castMapper),
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
+  })
+}
+
 

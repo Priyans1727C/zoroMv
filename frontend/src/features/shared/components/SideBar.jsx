@@ -42,8 +42,8 @@ export default function Sidebar() {
           <Sparkles className="h-5 w-5 text-primary" />
         </div>
         <h1 className="text-xl font-bold tracking-tight">
-          <span className="text-primary">Prime</span>
-          <span>Vision</span>
+          <span className="text-primary">Zoro</span>
+          <span>Mv</span>
         </h1>
       </Link>
 

@@ -24,7 +24,7 @@ function MainLayout() {
             <div className="mx-auto flex max-w-[1600px] gap-6 p-3 sm:p-4 lg:p-6">
                 <Sidebar />
 
-                <main className="relative flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 pt-16 lg:pt-0">
+                <main className="relative flex  min-w-0 flex-1 flex-col gap-5 sm:gap-6 pt-16 lg:pt-0">
                     <TopBar
                         category={category}
                         setCategory={setCategory}

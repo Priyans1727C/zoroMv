@@ -21,3 +21,13 @@ export const featchSearchHome = async (input,page=1) => {
   return data;
 }
 
+export const fetchById = async (mediaType,id) => {
+  const {data} = await tmdbApi.get(`/${mediaType}/${id}`);
+  return data;
+}
+
+
+export const fetchCasts = async (mediaType,id) => {
+  const {data} = await tmdbApi.get(`/${mediaType}/${id}/credits`);
+  return data;
+}

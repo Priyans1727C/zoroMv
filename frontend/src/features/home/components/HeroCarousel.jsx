@@ -4,8 +4,8 @@ import { Link } from "react-router";
 import { Play, Flame, Info, MoreHorizontal } from "lucide-react";
 
 const AUTO_ADVANCE_MS = 6000;
-const DRAG_THRESHOLD = 60;
-const VELOCITY_THRESHOLD = 400;
+const DRAG_THRESHOLD = 100;
+const VELOCITY_THRESHOLD = 600;
 
 export default function HeroCarousel({slides}) {
   const [[index, direction], setState] = useState([0, 1]);
@@ -57,12 +57,12 @@ export default function HeroCarousel({slides}) {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: direction > 0 ? "-100%" : "100%", opacity: 0.4 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 touch-pan-y cursor-grab active:cursor-grabbing"
+          className="absolute inset-0 overflow-hidden touch-pan-y cursor-grab active:cursor-grabbing"
         >
           <motion.div
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 6, ease: "linear" }}
+            transition={{ duration: 4, ease: "linear" }}
             className="pointer-events-none absolute inset-0"
           >
             <LazyImage
@@ -86,7 +86,7 @@ export default function HeroCarousel({slides}) {
               className="inline-flex w-fit items-center gap-2 rounded-full bg-black/40 px-3 py-1.5 text-[11px] font-semibold backdrop-blur-md sm:px-4 sm:text-xs"
             >
               <Flame className="h-3.5 w-3.5 text-primary" />
-              Now Popular
+              {slide.type}
             </motion.div>
 
             <div className="max-w-xl">
@@ -135,7 +135,7 @@ export default function HeroCarousel({slides}) {
                     Watch Now
                   </motion.button>
                 </Link>
-                <Link to={`/movies/${slug}`}>
+                <Link to={`/movies/${slide.id}`}>
                   <motion.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
@@ -238,9 +238,9 @@ export  function LazyImage({
             setLoaded(true);
             onLoaded?.();
           }}
-          initial={{ opacity: 0, scale: 1.04 }}
+          initial={{ opacity: 0, scale: 7 }}
           animate={{ opacity: loaded ? 1 : 0, scale: loaded ? 1 : 1.04 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, }}
           className={`h-full w-full object-cover ${imgClassName}`}
         />
       )}
