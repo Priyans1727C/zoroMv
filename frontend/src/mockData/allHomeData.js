@@ -36,3 +36,16 @@ export const trendingNow = [
   { id: 7, title: "Guardians Vol. 3", backdropUrl: "/assets/poster-mecha.jpg", rating: "7.9", year: "2023", genres: ["Action", "Comedy"], duration: "2h 30m" },
   { id: 8, title: "Mission: Impossible", backdropUrl: "/assets/thumb-platform.jpg", rating: "7.8", year: "2023", genres: ["Action", "Thriller"], duration: "2h 43m" },
 ];
+
+
+
+export const communityReviews = [
+  { id: 1, user: "Sarah Chen", handle: "@sarahwatches", avatarColor: "oklch(0.7 0.15 20)", initials: "SC", rating: 5, time: "10m ago", text: "The cinematography in this season completely blew me away. Every frame feels like a painting \u2014 easily the best series I've watched all year.", show: "The Last of Us", liked: 214 },
+  { id: 2, user: "Marcus Reyes", handle: "@marcusr", avatarColor: "oklch(0.7 0.15 260)", initials: "MR", rating: 4, time: "34m ago", text: "Dune Part Two is a visual masterpiece. The sound design alone deserves every award this year. Villeneuve never misses.", show: "Dune: Part Two", liked: 189 },
+  { id: 7, user: "Nina Volkov", handle: "@ninav", avatarColor: "oklch(0.7 0.15 300)", initials: "NV", rating: 5, time: "6h ago", text: "The Witcher's world-building keeps getting richer every season. Geralt's arc this time genuinely surprised me.", show: "The Witcher", liked: 133 },
+  { id: 8, user: "Tomás Ibarra", handle: "@tomasib", avatarColor: "oklch(0.7 0.15 60)", initials: "TI", rating: 3, time: "8h ago", text: "Solid entry but pacing dragged in the middle episodes. Still worth the watch for the finale alone.", show: "House of the Dragon", liked: 87 },
+  { id: 3, user: "Aiko Tanaka", handle: "@aiko_t", avatarColor: "oklch(0.75 0.15 175)", initials: "AT", rating: 5, time: "1h ago", text: "Attack on Titan's finale still gives me chills. The animation studio outdid themselves with the final battle sequences.", show: "Attack on Titan", liked: 342 },
+  { id: 4, user: "Jordan Blake", handle: "@jblake", avatarColor: "oklch(0.7 0.15 90)", initials: "JB", rating: 4, time: "2h ago", text: "Breaking Bad remains unmatched in character development. Every rewatch reveals something new I missed before.", show: "Breaking Bad", liked: 267 },
+  { id: 5, user: "Priya Nair", handle: "@priyareviews", avatarColor: "oklch(0.7 0.15 320)", initials: "PN", rating: 5, time: "3h ago", text: "Stranger Things nailed the 80s nostalgia while delivering genuine scares. The Duffer brothers keep raising the bar.", show: "Stranger Things", liked: 198 },
+  { id: 6, user: "Leo Fontaine", handle: "@leofontaine", avatarColor: "oklch(0.7 0.15 140)", initials: "LF", rating: 4, time: "5h ago", text: "Demon Slayer's fight choreography combined with that soundtrack gives me goosebumps every single episode.", show: "Demon Slayer", liked: 156 },
+];

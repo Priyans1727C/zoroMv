@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useState,useRef,useEffect } from "react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -245,9 +245,9 @@ export function HeroSection({ slide }) {
 
 /* ─────────────────────── Synopsis + Score ─────────────────────── */
 
-export const DetailInfoSections = memo(function DetailInfoSections({slide}) {
+export const DetailInfoSections = memo(function DetailInfoSections({ slide }) {
   // const { synopsis, stats, audienceScore, reviewCount, scoreBreakdown } = titleDetails;
-  const { overview, stats, userScore, voteCount, scoreBreakdown } = slide ;
+  const { overview, stats, userScore, voteCount, scoreBreakdown } = slide;
   const scoreOffset = CIRCLE_CIRCUMFERENCE * (1 - userScore / 100);
 
   return (
@@ -304,7 +304,7 @@ export const DetailInfoSections = memo(function DetailInfoSections({slide}) {
           </div>
           <div className="text-sm text-muted-foreground">
             Based on reviews and ratings shared by TMDb users, reflecting the opinions and experiences of the community.
-          
+
           </div>
         </div>
         <div className="grid grid-cols-3 gap-3 border-t border-border pt-4">
@@ -428,9 +428,8 @@ export const EpisodesSection = memo(function EpisodesSection() {
                       setSeason(s.season);
                       setOpen(false);
                     }}
-                    className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition-colors ${
-                      s.season === season ? "bg-primary/15 text-primary" : "hover:bg-white/5"
-                    }`}
+                    className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition-colors ${s.season === season ? "bg-primary/15 text-primary" : "hover:bg-white/5"
+                      }`}
                   >
                     Season {s.season}
                     <span className="text-[10px] text-muted-foreground">
@@ -464,7 +463,7 @@ export const EpisodesSection = memo(function EpisodesSection() {
 
 /* ─────────────────────────── Cast ─────────────────────────── */
 
-export const CastSection = memo(function CastSection({casts}) {
+export const CastSection = memo(function CastSection({ casts }) {
   const { cast } = titleDetails;
 
   return (
@@ -508,6 +507,124 @@ export const CastSection = memo(function CastSection({casts}) {
             transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
             whileHover={{ y: -6 }}
             className="group flex w-[112px] shrink-0 cursor-pointer snap-start flex-col items-center sm:w-[132px] lg:w-auto"
+          >
+            <div className="relative z-10 aspect-square w-[72%] overflow-hidden rounded-full ring-2 ring-white/10 transition-all duration-300 group-hover:ring-primary/50">
+              <motion.img
+                src={member.profileImageUrl}
+                alt={member.name}
+                loading="lazy"
+                width={512}
+                height={512}
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.6 }}
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="glass-panel -mt-3 flex w-full flex-col items-center justify-end rounded-t-[1.75rem] rounded-b-xl px-2 pb-2.5 pt-5 text-center sm:pb-3 sm:pt-6">
+              <p className="w-full truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary sm:text-xs">
+                {member.name}
+              </p>
+              <p className="w-full truncate text-[10px] text-muted-foreground">{member.role}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.section>
+  );
+});
+
+
+
+
+
+// Cast testing
+export const CastSectionTest = memo(function CastSectionTest({ casts }) {
+  const scrollRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScrollability = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(Math.ceil(scrollLeft) < scrollWidth - clientWidth - 2);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollability();
+    window.addEventListener('resize', checkScrollability);
+    return () => window.removeEventListener('resize', checkScrollability);
+  }, [casts]);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.offsetWidth;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  return (
+    <motion.section {...fade(0.1)} className="glass-panel rounded-3xl p-6 sm:p-8">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <h2 className="text-lg font-bold sm:text-xl">Top Cast</h2>
+        
+        {/* CHANGED HERE: Removed 'hidden' and 'md:flex', replaced with 'flex' */}
+        <div className="flex items-center gap-1.5">
+          <AnimatePresence mode="popLayout">
+            {canScrollLeft && (
+              <motion.button
+                key="left-btn"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                onClick={() => scroll('left')}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Previous cast"
+                className="grid h-8 w-8 place-items-center rounded-full border border-white/15 bg-white/5 text-foreground transition-all hover:bg-white/10"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </motion.button>
+            )}
+
+            {canScrollRight && (
+              <motion.button
+                key="right-btn"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                onClick={() => scroll('right')}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Next cast"
+                className="grid h-8 w-8 place-items-center rounded-full border border-white/15 bg-white/5 text-foreground transition-all hover:bg-white/10"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </motion.button>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <div 
+        ref={scrollRef} 
+        onScroll={checkScrollability} 
+        className="scroll-hide flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 lg:gap-5"
+      >
+        {casts.map((member, i) => (
+          <motion.div
+            key={`${member.name}-${i}`}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
+            whileHover={{ y: -6 }}
+            className="group flex w-[112px] shrink-0 cursor-pointer snap-start flex-col items-center sm:w-[132px]"
           >
             <div className="relative z-10 aspect-square w-[72%] overflow-hidden rounded-full ring-2 ring-white/10 transition-all duration-300 group-hover:ring-primary/50">
               <motion.img
