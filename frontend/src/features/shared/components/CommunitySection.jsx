@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clapperboard } from "lucide-react";
 import { communityReviews } from "../../../mockData/allHomeData";
+import Cute from "/assets/cute.png"
 
 const TABS = [
   { key: "newest", label: "Newest" },
@@ -74,7 +75,7 @@ function HideToggle({ hideComments, setHideComments }) {
 // 3. Main Section
 export default function CommunitySection() {
   const [activeTab, setActiveTab] = useState("newest");
-  const [hideComments, setHideComments] = useState(true);
+  const [hideComments, setHideComments] = useState(false);
 
   const sorted =
     activeTab === "top"
@@ -107,14 +108,15 @@ export default function CommunitySection() {
             {/* Left illustration - desktop only, bottom-anchored */}
             <div className="hidden w-[26%] shrink-0 justify-end lg:flex lg:flex-col">
               <img
-                src="https://animeit.net/images/comments-mascot.png"
+                // src="https://animeit.net/images/comments-mascot.png"
+                src={Cute}
                 alt="Community Mascot"
                 className="object-contain"
               />
             </div>
 
             {/* Right content */}
-            <div className="flex w-full flex-col gap-5 px-4 pb-2 pt-5 sm:gap-6 sm:px-6 lg:w-[74%] lg:px-2 lg:pr-6 lg:pt-5">
+            <div className="flex w-full flex-col gap-5  px-4 pb-2 pt-5 sm:gap-6 sm:px-6 lg:w-[74%] lg:px-0 lg:pr-6 lg:pt-5">
               
               {/* Controls row */}
               <div className="flex flex-wrap items-center justify-between gap-3">

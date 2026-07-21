@@ -66,5 +66,5 @@ export const titleDetails = {
     { name: "Sophie Dumond", role: "Supporting", profileImageUrl: CAST_IMAGES[1] },
     { name: "Murray Franklin", role: "Supporting", profileImageUrl: CAST_IMAGES[2] },
   ],
-  seasonsData: [buildSeason(1, 6), buildSeason(2, 5), buildSeason(3, 4)],
+  seasonsData: [buildSeason(1, 12), buildSeason(2, 5), buildSeason(3, 4)],
 };

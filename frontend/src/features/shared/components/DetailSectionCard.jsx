@@ -91,26 +91,7 @@ export const HeroCard = memo(function HeroCard({ slide, onTrailerOpen }) {
               </span>
             ))}
 
-            {/* <span key={slide.rating} className="flex items-center gap-1.5">
-                <Star
-                  className={`h-4 w-4 ${true ? "fill-primary text-primary" : ""}`}
-                />
-                {slide.rating}
-              </span>
-
-            <span key={slide.type} className="flex items-center gap-1.5">
-                <Tv
-                  className={`h-4 w-4`}
-                />
-                {slide.type}
-              </span>  
-
-              <span key={slide.runtime} className="flex items-center gap-1.5">
-                <Clock
-                  className={`h-4 w-4`}
-                />
-                {slide.runtime}
-              </span>   */}
+       
           </motion.div>
 
           <motion.p
@@ -128,7 +109,7 @@ export const HeroCard = memo(function HeroCard({ slide, onTrailerOpen }) {
             transition={{ delay: 0.7 }}
             className="mt-4 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3"
           >
-            <Link to={`/watch/${slide.title.toLowerCase().replace(/\s+/g, "-")}`}>
+            <Link to={`/watch/${slide.type}/${slide.title.toLowerCase().replace(/\s+/g, "-")}`}>
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
@@ -611,43 +592,39 @@ export const CastSectionTest = memo(function CastSectionTest({ casts }) {
         </div>
       </div>
 
-      <div 
-        ref={scrollRef} 
-        onScroll={checkScrollability} 
-        className="scroll-hide flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 lg:gap-5"
-      >
-        {casts.map((member, i) => (
-          <motion.div
-            key={`${member.name}-${i}`}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
-            whileHover={{ y: -6 }}
-            className="group flex w-[112px] shrink-0 cursor-pointer snap-start flex-col items-center sm:w-[132px]"
-          >
-            <div className="relative z-10 aspect-square w-[72%] overflow-hidden rounded-full ring-2 ring-white/10 transition-all duration-300 group-hover:ring-primary/50">
-              <motion.img
-                src={member.profileImageUrl}
-                alt={member.name}
-                loading="lazy"
-                width={512}
-                height={512}
-                whileHover={{ scale: 1.08 }}
-                transition={{ duration: 0.6 }}
-                className="h-full w-full object-cover"
-              />
-            </div>
-
-            <div className="glass-panel -mt-3 flex w-full flex-col items-center justify-end rounded-t-[1.75rem] rounded-b-xl px-2 pb-2.5 pt-5 text-center sm:pb-3 sm:pt-6">
-              <p className="w-full truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary sm:text-xs">
-                {member.name}
-              </p>
-              <p className="w-full truncate text-[10px] text-muted-foreground">{member.role}</p>
-            </div>
-          </motion.div>
-        ))}
+     <div 
+  ref={scrollRef} 
+  onScroll={checkScrollability} 
+  className="scroll-hide flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 pt-3 -mt-3 lg:gap-5"
+>
+  {casts.map((member, i) => (
+    <motion.div
+      key={`${member.name}-${i}`}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}
+      whileHover={{ y: -6 }}
+      className="group flex w-[112px] shrink-0 cursor-pointer snap-start flex-col items-center sm:w-[132px]"
+    >
+      <div className="relative z-10 aspect-square w-[72%] overflow-hidden rounded-full ring-2 ring-white/10 transition-all duration-300 group-hover:ring-primary/50">
+        <img
+          src={member.profileImageUrl}
+          alt={member.name}
+          loading="lazy"
+          className="h-32 w-32 object-cover"
+        />
       </div>
+
+      <div className="glass-panel -mt-3 flex w-full flex-col items-center justify-end rounded-t-[1.75rem] rounded-b-xl px-2 pb-2.5 pt-5 text-center sm:pb-3 sm:pt-6">
+        <p className="w-full truncate text-[11px] font-semibold text-foreground transition-colors group-hover:text-primary sm:text-xs">
+          {member.name}
+        </p>
+        <p className="w-full truncate text-[10px] text-muted-foreground">{member.role}</p>
+      </div>
+    </motion.div>
+  ))}
+</div>
     </motion.section>
   );
 });

@@ -3,6 +3,7 @@ import CardRail from "../shared/components/CardRail";
 import { useTrendingHome,useMoviesHome,useSeriesHome } from "./hooks/useHome";
 import { useEffect } from "react";
 import { HERO_SLIDES, continueWatching, trendingNow } from "../../mockData/allHomeData";
+import CommunitySection from "../shared/components/CommunitySection";
 
 
 import { Clock, TrendingUp,Trophy,Star,Tv,Sparkles } from "lucide-react";
@@ -29,6 +30,7 @@ export default function Home() {
       {isSuccess && <HeroCarousel slides={trending?.slice(0, 12) } />}
       {isSuccess &&  <CardRail title="Continue Watching" icon={Clock} items={continueWatching} cardVariant="continue" delay={0}/>}
       {isSuccess &&  <CardRail title="Top 10 Today" icon={Trophy} items={trending} cardVariant="numbered" delay={0.05}/>}
+      <CommunitySection/>
       {isSuccess &&  <CardRail title="Trending Now" icon={TrendingUp} items={trending} cardVariant="poster" />}
       {isSuccessPopularMovie &&  <CardRail title="Popular Movies" icon={Sparkles} items={popularMovie} cardVariant="poster" />}
       {isSuccessTopRatedMovie &&  <CardRail title="Top Rated Movies" icon={Star} items={topRatedMovie} cardVariant="poster" />}

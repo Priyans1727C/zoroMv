@@ -8,7 +8,8 @@ import CommunitySection from "../components/CommunitySection";
 
 
 export default function MovieDetails() {
-    const { id } = useParams();
+    const { mediaType,  slug } = useParams();
+    const id = slug.slice(slug.lastIndexOf("-") + 1);
     const { data, isSuccess,error } = useFetchById("movie", id);
     const {data:casts, isSuccess:isSuccessCasts } = useFetchCasts("movie",id); 
 
