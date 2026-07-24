@@ -31,3 +31,9 @@ export const fetchCasts = async (mediaType,id) => {
   const {data} = await tmdbApi.get(`/${mediaType}/${id}/credits`);
   return data;
 }
+
+
+export const fetchSeasonEpisodes= async (id,s=1) => {
+  const {data} = await tmdbApi.get(`/tv/${id}/season/${s}`);
+  return data;
+}

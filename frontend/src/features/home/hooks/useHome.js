@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome,fetchById, fetchCasts } from "../api/tmdbService";
+import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome,fetchById, fetchCasts, fetchSeasonEpisodes } from "../api/tmdbService";
 import { trendingMapper } from "../../shared/mapper/home";
-import { cardDetailMapper,castMapper } from "../../shared/mapper/shared";
+import { cardDetailMapper,castMapper,episodeMapper } from "../../shared/mapper/shared";
 
 // type: "all|movie|"tv"   ,       time_window: "day|week"
 export const useTrendingHome = (mediaType="movie",time_window="day") => {
@@ -19,7 +19,7 @@ export const useMoviesHome = (category="popular") => {
   return useQuery({
     queryKey: ['movies', category],
     queryFn: () => fetchMoviesHome(category),
-    select: (response) => response.results.map(trendingMapper),
+    select: (response) => (response?.results ?? []).map((item) => trendingMapper(item, "movie")),
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   })
@@ -29,7 +29,7 @@ export const useSeriesHome = (category="popular") => {
   return useQuery({
     queryKey: ['series',category],
     queryFn: () => fetchSeriesHome(category),
-    select: (response) => response.results.map(trendingMapper),
+    select: (response) => (response?.results ?? []).map((item) => trendingMapper(item, "tv")),
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 60,
   })
@@ -61,6 +61,18 @@ export const useFetchCasts = (mediaType,id) => {
     queryKey:['casts',mediaType,id],
     queryFn: () => fetchCasts(mediaType,id),
     select: (response) => response.cast.map(castMapper),
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
+  })
+}
+
+
+export const useFetchSeasonEpisodes = (id,season) => {
+  return useQuery({
+    queryKey:['Episodes',id,season],
+    queryFn: () => fetchSeasonEpisodes(id,season),
+    select: (response) => response.episodes.map(episodeMapper),
+    enabled: !!season,
     staleTime: 1000 * 60,
     gcTime: 1000 * 60,
   })
