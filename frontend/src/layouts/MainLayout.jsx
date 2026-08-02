@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Outlet,useLocation } from "react-router";
 import { motion } from "framer-motion";
-import TopBar from "./components/TopBar";
+import TopBar from "./components/Topbar";
 import MobileNav from "./components/MobileNav";
-import Sidebar from "./components/SideBar";
+import Sidebar from "./components/Sidebar";
 
 
 export default function MainLayout() {
