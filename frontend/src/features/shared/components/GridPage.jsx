@@ -55,7 +55,7 @@ export default function GridPage({
         {Object.entries(GENRES).map(([id, name], i) => (
           <button
             key={id}
-            onClick={() => setGenreFilter(Number(id))}
+            onClick={() => { genreFilter != id ? setGenreFilter(Number(id)) : setGenreFilter(null); }}
             className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
               genreFilter == id
                 ? "bg-primary text-primary-foreground"

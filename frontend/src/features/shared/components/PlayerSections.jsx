@@ -47,7 +47,8 @@ export function VideoFrame({ src, serverName, latency, mediaType, contextLabel, 
       className={`relative flex flex-col overflow-hidden rounded-2xl border border-white/5 bg-black/70 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.9)] sm:rounded-[2rem] ${heightCls}`}
     >
       {/* floating stream status pill */}
-      <div className="pointer-events-none absolute left-4 top-4 z-30 flex items-center gap-2 rounded-full border border-white/10 bg-background/60 px-3 py-1.5 backdrop-blur-md">
+      {/* floating stream status pill */}
+      <div className="pointer-events-none absolute left-4 top-4 z-30 hidden sm:flex items-center gap-2 rounded-full border border-white/10 bg-background/60 px-3 py-1.5 backdrop-blur-md">
         <span className="relative flex h-2 w-2">
           <span className="absolute h-full w-full animate-ping rounded-full bg-primary opacity-60" />
           <span className="relative h-2 w-2 rounded-full bg-primary" />

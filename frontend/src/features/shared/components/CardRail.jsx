@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
-import {ContinueCard,PosterCard,NumberedCard} from "./MediaCards";
+import { ContinueCard, PosterCard, NumberedCard } from "./MediaCards";
 
 const CARD_VARIANT_MAP = {
   continue: ContinueCard,
@@ -76,11 +76,10 @@ export default function CardRail({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => scroll(-1)}
-              className={`grid h-8 w-8 place-items-center rounded-full border transition-all ${
-                canScrollLeft
+              className={`grid h-8 w-8 place-items-center rounded-full border transition-all ${canScrollLeft
                   ? "border-white/15 bg-white/5 text-foreground hover:bg-white/10"
                   : "border-white/5 bg-transparent text-white/20 cursor-default"
-              }`}
+                }`}
               disabled={!canScrollLeft}
             >
               <ChevronLeft className="h-4 w-4" />
@@ -89,11 +88,10 @@ export default function CardRail({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => scroll(1)}
-              className={`grid h-8 w-8 place-items-center rounded-full border transition-all ${
-                canScrollRight
+              className={`grid h-8 w-8 place-items-center rounded-full border transition-all ${canScrollRight
                   ? "border-white/15 bg-white/5 text-foreground hover:bg-white/10"
                   : "border-white/5 bg-transparent text-white/20 cursor-default"
-              }`}
+                }`}
               disabled={!canScrollRight}
             >
               <ChevronRight className="h-4 w-4" />
@@ -102,7 +100,7 @@ export default function CardRail({
 
           <a
             href={seeAllHref}
-            className="group/link hidden items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-foreground/80 backdrop-blur-md transition-all hover:border-primary/40 hover:bg-primary/10 hover:text-primary sm:flex"
+            className="group/link flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-foreground/80 backdrop-blur-md transition-all hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
           >
             See all
             <ArrowRight className="h-3 w-3 transition-transform group-hover/link:translate-x-0.5" />
@@ -112,14 +110,12 @@ export default function CardRail({
 
       <div className="relative">
         <div
-          className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-background to-transparent transition-opacity duration-300 sm:w-12 ${
-            canScrollLeft ? "opacity-100" : "opacity-0"
-          }`}
+          className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-background to-transparent transition-opacity duration-300 sm:w-12 ${canScrollLeft ? "opacity-100" : "opacity-0"
+            }`}
         />
         <div
-          className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-background to-transparent transition-opacity duration-300 sm:w-12 ${
-            canScrollRight ? "opacity-100" : "opacity-0"
-          }`}
+          className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-background to-transparent transition-opacity duration-300 sm:w-12 ${canScrollRight ? "opacity-100" : "opacity-0"
+            }`}
         />
 
         <div

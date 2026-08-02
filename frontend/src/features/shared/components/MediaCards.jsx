@@ -1,6 +1,6 @@
 import { use, useState } from "react";
 import { motion } from "framer-motion";
-import { Film, Star, Play, Plus } from "lucide-react";
+import { Film, Star, Play, Plus,Eye } from "lucide-react";
 import { useNavigate,Link} from "react-router";
 import { LazyImage } from "./LazyLoading";
 
@@ -146,7 +146,7 @@ export function PosterCard({ item, index = 0 }) {
               whileTap={{ scale: 0.95 }}
               className="grid h-12 w-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/25"
             >
-              <Play className="h-5 w-5 fill-current" />
+              <Eye className="h-5 w-5" />
             </motion.button>
           </div>
         </Link>

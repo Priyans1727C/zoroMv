@@ -55,9 +55,11 @@ export const NOTIFICATION_TYPE_CONFIG = {
   system: { icon: BadgeCheck, iconClassName: "bg-emerald-400/15 text-emerald-300" },
 };
 export const INITIAL_NOTIFICATIONS = [
-  { id: 1, type: "release", title: "Severance · S2 E8", message: "Mid-season finale just landed.", time: "2m", isUnread: true, hasPoster: true },
-  { id: 2, type: "reminder", title: "Chernobyl · Ep 3", message: "36 min left.", time: "1h", isUnread: true, hasPoster: true },
-  { id: 3, type: "social", title: "nova_reels replied", message: "That third act reframes everything.", time: "3h", isUnread: true, hasPoster: false },
-  { id: 4, type: "release", title: "The Long Dark · S2", message: "New season streaming in 4K.", time: "1d", isUnread: false, hasPoster: true },
-  { id: 5, type: "system", title: "Premium 4K on", message: "Dolby Atmos enabled.", time: "2d", isUnread: false, hasPoster: false },
+  { id: 55, type: "social", title: "Welcome", message: "Thanks for joning me.", time: "2m", isUnread: true, hasPoster: true },
+
+  // { id: 1, type: "release", title: "Severance · S2 E8", message: "Thanks for joning me.", time: "2m", isUnread: true, hasPoster: true },
+  // { id: 2, type: "reminder", title: "Chernobyl · Ep 3", message: "36 min left.", time: "1h", isUnread: true, hasPoster: true },
+  // { id: 3, type: "social", title: "nova_reels replied", message: "That third act reframes everything.", time: "3h", isUnread: true, hasPoster: false },
+  // { id: 4, type: "release", title: "The Long Dark · S2", message: "New season streaming in 4K.", time: "1d", isUnread: false, hasPoster: true },
+  // { id: 5, type: "system", title: "Premium 4K on", message: "Dolby Atmos enabled.", time: "2d", isUnread: false, hasPoster: false },
 ];
