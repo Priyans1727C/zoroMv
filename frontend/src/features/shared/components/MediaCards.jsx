@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { motion } from "framer-motion";
 import { Film, Star, Play, Plus } from "lucide-react";
+import { useNavigate,Link} from "react-router";
+import { LazyImage } from "./LazyLoading";
 
 function getPlaceholderGradient(title) {
   const hues = [175, 200, 240, 280, 320, 40, 80, 120, 160, 200, 220, 260];
@@ -35,8 +37,12 @@ function CardImage({ src, alt, aspectRatio, className = "" }) {
 }
 
 
+
+
+
 /* ─── Continue Watching Card ─── */
 export function ContinueCard({ item, index = 0 }) {
+const navigate = useNavigate();
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -44,11 +50,12 @@ export function ContinueCard({ item, index = 0 }) {
       viewport={{ once: true, margin: "-40px" }}
       transition={{ delay: index * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
+      onClick={()=>navigate(`/watch/${item.mediaType}/${item.id}`)}
       className="group relative w-[200px] shrink-0 cursor-pointer sm:w-[260px] lg:w-[300px]"
     >
       <div className="relative overflow-hidden rounded-2xl border border-white/[0.04] bg-surface shadow-lg shadow-black/20">
         <CardImage
-          src={item.backdropUrl}
+          src={item.posterUrl}
           alt={item.title}
           aspectRatio="16/9"
           className="transition-transform duration-700 ease-out group-hover:scale-105"
@@ -82,9 +89,13 @@ export function ContinueCard({ item, index = 0 }) {
       </div>
 
       {/* Info */}
-      <div className="mt-3 px-2.5">
+        <div className="mt-3 px-2.5">
         <h4 className="truncate text-sm font-semibold text-foreground/90">{item.title}</h4>
-        <p className="mt-0.5 truncate text-xs text-muted-foreground">{item.episode}</p>
+        <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
+          <span>{item.mediaType ==="tv" ? `S${item.season} E${item.episode}`:"movie" }</span>
+          <span className="h-0.5 w-0.5 rounded-full bg-muted-foreground/50" />
+          <span className="truncate">{item.genres?.slice(0, 2).join(" /")}</span>
+        </div>
       </div>
     </motion.div>
   );
@@ -97,12 +108,12 @@ export function PosterCard({ item, index = 0 }) {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -10 }}
+      transition={{ delay:  0.25, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -17 }}
       className="group relative w-[150px] shrink-0 cursor-pointer sm:w-[180px] lg:w-[220px]"
     >
       <div className="relative overflow-hidden rounded-2xl border border-white/[0.04] bg-surface shadow-lg shadow-black/20">
-        <CardImage
+        <LazyImage
           src={item.posterUrl}
           alt={item.title}
           aspectRatio="2/3"
@@ -120,30 +131,36 @@ export function PosterCard({ item, index = 0 }) {
             </span>
           )}
           {item.rating && (
-            <span className="flex items-center gap-0.5 rounded-md bg-black/60 px-2 py-0.5 text-[10px] font-bold text-amber-400 backdrop-blur-sm">
-              <Star className="h-2.5 w-2.5 fill-amber-400" />
+            <span className="flex items-center gap-0.5 rounded-md bg-black/60 px-2 py-0.5 text-[10px] font-bold text-primary backdrop-blur-sm">
+              <Star className="h-2.5 w-2.5 fill-primary" />
               {item.rating}
             </span>
           )}
         </div>
 
         {/* Center play button */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="grid h-12 w-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/25"
-          >
-            <Play className="h-5 w-5 fill-current" />
-          </motion.button>
-        </div>
+        <Link to={`/find/${item.type}/fixing-needed-${item.id}`}>
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="grid h-12 w-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/25"
+            >
+              <Play className="h-5 w-5 fill-current" />
+            </motion.button>
+          </div>
+        </Link>
 
         {/* Bottom action bar */}
         <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-3 translate-y-3 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          
+          <Link to={`/watch/${item.type}/${item.id}`}>
           <button className="flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground shadow-lg">
             <Play className="h-3 w-3 fill-current" />
             Play
           </button>
+          </Link>
+
           <button className="grid h-8 w-8 place-items-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20">
             <Plus className="h-4 w-4" />
           </button>
@@ -237,8 +254,8 @@ export function NumberedCard({ item, index = 0 }) {
             </span>
           )}
           {item.rating && (
-            <span className="flex items-center gap-0.5 rounded-md bg-black/60 px-2 py-0.5 text-[10px] font-bold text-amber-400 backdrop-blur-sm">
-              <Star className="h-2.5 w-2.5 fill-amber-400" />
+            <span className="flex items-center gap-0.5 rounded-md bg-black/60 px-2 py-0.5 text-[10px] font-bold text-primary backdrop-blur-sm">
+              <Star className="h-2.5 w-2.5 fill-primary" />
               {item.rating}
             </span>
           )}

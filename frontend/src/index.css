@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
-@source "../src";
+/* @source "../src"; */
+/* @source ".*.{js,jsx,ts,tsx}"; */
 
 @custom-variant dark (&:is(.dark *));
+
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -95,6 +98,14 @@
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+
+/* equalizer bars for the "now playing" badge on the active episode */
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50%      { transform: scaleY(1); }
+}
+
 
 /* Hide scrollbar globally */
 * {

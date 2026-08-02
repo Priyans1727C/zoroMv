@@ -10,7 +10,7 @@ import CommunitySection from "../components/CommunitySection";
 export default function MovieDetails() {
     const { mediaType,  slug } = useParams();
     const id = slug.slice(slug.lastIndexOf("-") + 1);
-    const { data, isSuccess,error } = useFetchById("movie", id);
+    const { data, isSuccess,error } = useFetchById(mediaType, id);
     const {data:casts, isSuccess:isSuccessCasts } = useFetchCasts("movie",id); 
 
 useEffect(() => {
@@ -20,6 +20,8 @@ useEffect(() => {
   const slide = SLIDES[0];
 
   if(!isSuccess) return(<>Loading</>)
+  if(isSuccess) console.log(data);
+  
   return (
     <div className="flex flex-col gap-5 pb-10 sm:gap-6">
       <HeroSection slide={data} />

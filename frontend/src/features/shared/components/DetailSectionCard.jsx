@@ -109,7 +109,7 @@ export const HeroCard = memo(function HeroCard({ slide, onTrailerOpen }) {
             transition={{ delay: 0.7 }}
             className="mt-4 flex flex-wrap items-center gap-2 sm:mt-6 sm:gap-3"
           >
-            <Link to={`/watch/${slide.type}/${slide.title.toLowerCase().replace(/\s+/g, "-")}`}>
+            <Link to={`/watch/${slide.type}/${slide.id}`}>
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}

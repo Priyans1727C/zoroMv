@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState,useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
 import { Play, Flame, Info, MoreHorizontal } from "lucide-react";
@@ -7,7 +7,7 @@ const AUTO_ADVANCE_MS = 6000;
 const DRAG_THRESHOLD = 100;
 const VELOCITY_THRESHOLD = 600;
 
-export default function HeroCarousel({slides}) {
+export default function HeroCarousel({ slides }) {
   const [[index, direction], setState] = useState([0, 1]);
   const [paused, setPaused] = useState(false);
   const count = slides.length;
@@ -118,7 +118,7 @@ export default function HeroCarousel({slides}) {
               >
                 {slide.overview}
               </motion.p>
-
+              
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -129,7 +129,7 @@ export default function HeroCarousel({slides}) {
                   <motion.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-xs font-semibold text-black shadow-lg shadow-white/10 sm:px-6 sm:py-3 sm:text-sm"
+                    className="flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-xs font-semibold text-black shadow-lg shadow-white/10 sm:px-6 sm:py-3 sm:text-sm"
                   >
                     <Play className="h-4 w-4 fill-current" />
                     Watch Now
@@ -139,20 +139,20 @@ export default function HeroCarousel({slides}) {
                   <motion.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2.5 text-xs font-medium backdrop-blur-md sm:px-6 sm:py-3 sm:text-sm"
+                    className="glass-panel inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold sm:px-6 sm:py-3 sm:text-sm"
                   >
                     <Info className="h-4 w-4" />
                     <span className="hidden sm:inline">More Info</span>
                     <span className="sm:hidden">Info</span>
                   </motion.button>
                 </Link>
-                <motion.button
+                {/* <motion.button
                   whileHover={{ scale: 1.08 }}
                   aria-label="More options"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 backdrop-blur-md"
+                  className="glass-panel inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold sm:px-6 sm:py-3 sm:text-sm"
                 >
                   <MoreHorizontal className="h-4 w-4" />
-                </motion.button>
+                </motion.button> */}
               </motion.div>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function HeroCarousel({slides}) {
 }
 
 
-export  function LazyImage({
+export function LazyImage({
   src,
   alt,
   className = "",

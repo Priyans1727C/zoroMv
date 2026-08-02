@@ -2,13 +2,12 @@ import { useState } from "react";
 import { Outlet,useLocation } from "react-router";
 import { motion } from "framer-motion";
 import TopBar from "../components/TopBar";
+
 import Sidebar from "../components/SideBar";
 import MobileNav from "../components/MobileNav";
 
 export default function MainLayout() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [category, setCategory] = useState("All");
-  const [catOpen, setCatOpen] = useState(false);
   const location = useLocation();
 
   return (
@@ -29,11 +28,7 @@ export default function MainLayout() {
         <main className="relative flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 pt-16 lg:pt-0">
           {/* Sticky desktop header. Small screens use the Dynamic Island navbar. */}
           <TopBar
-            category={category}
-            setCategory={setCategory}
-            catOpen={catOpen}
-            setCatOpen={setCatOpen}
-          />
+/>
 
           <motion.div
             key={location.pathname}

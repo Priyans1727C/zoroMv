@@ -37,3 +37,23 @@ export const fetchSeasonEpisodes= async (id,s=1) => {
   const {data} = await tmdbApi.get(`/tv/${id}/season/${s}`);
   return data;
 }
+
+
+
+
+//by page:
+export const fetchTrendingByPage = async (mediaType, time_window = "day",page=1) => {
+  const { data } = await tmdbApi.get(`/trending/${mediaType}/${time_window}`,{params:{page:page}});
+  return data;
+};
+
+
+export const fetchMoviesByPage = async (category="popular",page=1) => {
+  const {data} = await tmdbApi.get(`/movie/${category}`,{params:{page:page}});
+  return data;
+}
+
+export const fetchSeriesByPage = async (category="popular",page=1) => {
+  const {data} = await tmdbApi.get(`/tv/${category}`,{params:{page:page}});
+  return data;
+}

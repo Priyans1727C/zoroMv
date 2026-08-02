@@ -2,6 +2,9 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router";
 import { Home, Compass, Heart, User, Settings, Play, Sparkles } from "lucide-react";
+import { PosterSkeleton } from "./Skeleton";
+
+
 
 const NAV_MAIN = [
   { key: "home", label: "Home", icon: Home, path: "/" },
@@ -17,9 +20,10 @@ const NAV_ACCOUNT = [
 ];
 
 const CONTINUE_WATCHING = [
-  { title: "Chernobyl", sub: "Episode 3", img: "/assets/thumb-chernobyl.jpg", progress: 64 },
-  { title: "Snowpiercer", sub: "Episode 7", img: "/assets/thumb-snow.jpg", progress: 32 },
-  { title: "The Platform", sub: "55min 12sec", img: "/assets/thumb-platform.jpg", progress: 78 },
+  { title: "Chernobyl", sub: "Episode 3", progress: 64 },
+  { title: "Snowpiercer", sub: "Episode 7", progress: 32 },
+  { title: "The Platform", sub: "55min 12sec", progress: 78 },
+  { title: "Dark Matter", sub: "Episode 1", progress: 12 },
 ];
 
 export default function Sidebar() {
@@ -76,7 +80,7 @@ export default function Sidebar() {
               className="group flex items-center gap-3 rounded-2xl bg-surface-2/40 p-2 text-left transition-colors hover:bg-surface-2"
             >
               <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-lg">
-                <img src={item.img} alt={item.title} className="h-full w-full object-cover" />
+                <PosterSkeleton className="h-full w-full rounded-lg" />
                 <div className="absolute inset-x-0 bottom-0 h-0.5 bg-white/20">
                   <div className="h-full bg-primary" style={{ width: `${item.progress}%` }} />
                 </div>
@@ -120,3 +124,5 @@ function NavButton({ item, isActive }) {
     </Link>
   );
 }
+
+export { NAV_MAIN, NAV_ACCOUNT };
