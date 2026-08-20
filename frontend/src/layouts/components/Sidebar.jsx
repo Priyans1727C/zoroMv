@@ -2,7 +2,8 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router";
 import { Home, Compass, Heart, User, Settings, Play, Sparkles } from "lucide-react";
-import { PosterSkeleton } from "./Skeleton";
+import { PosterSkeleton,LazyImage } from "./Skeleton";
+import useContinueWatching from "../../features/shared/hooks/usePlayer";
 
 
 
@@ -33,6 +34,10 @@ export default function Sidebar() {
     const allItems = [...NAV_MAIN, ...NAV_ACCOUNT];
     return allItems.find((item) => item.path === location.pathname)?.key ?? "home";
   }, [location.pathname]);
+
+
+  const { getSorted } = useContinueWatching();
+  const continueItems = useMemo(() => getSorted(), [getSorted]);
 
   return (
     <motion.aside
@@ -70,9 +75,9 @@ export default function Sidebar() {
           Continue Watching
         </p>
         <div className="scroll-hide mt-4 flex flex-col gap-3 overflow-y-auto pr-1">
-          {CONTINUE_WATCHING.map((item, i) => (
+          {continueItems.map((item, i) => (
             <motion.button
-              key={item.title}
+              key={item.id}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + i * 0.08, duration: 0.4 }}
@@ -80,14 +85,15 @@ export default function Sidebar() {
               className="group flex items-center gap-3 rounded-2xl bg-surface-2/40 p-2 text-left transition-colors hover:bg-surface-2"
             >
               <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-lg">
-                <PosterSkeleton className="h-full w-full rounded-lg" />
+                {/* <PosterSkeleton className="h-full w-full rounded-lg" /> */}
+                <LazyImage src={item.posterUrl} alt={item.title} className="h-full w-full rounded-lg"/>
                 <div className="absolute inset-x-0 bottom-0 h-0.5 bg-white/20">
                   <div className="h-full bg-primary" style={{ width: `${item.progress}%` }} />
                 </div>
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold">{item.title}</p>
-                <p className="truncate text-xs text-muted-foreground">{item.sub}</p>
+                <p className="truncate text-xs text-muted-foreground">{item.mediaType ==="tv" ? `S${item.season} E${item.episode}`:"movie" }</p>
               </div>
               <div className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white/5 text-foreground/80 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 <Play className="h-3 w-3 fill-current" />

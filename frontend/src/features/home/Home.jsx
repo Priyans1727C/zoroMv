@@ -36,7 +36,7 @@ export default function Home() {
     <div className="flex flex-col gap-8 pb-10">
       {/* Hero Carousel */}
       {isSuccess? <HeroCarousel slides={trending?.slice(0, 12) } />:<HeroSkeleton/>}
-      {isSuccess &&  <CardRail title="Continue Watching" icon={Clock} items={continueItems} cardVariant="continue" delay={0} seeAllHref="/browse/trending" />}
+      {isSuccess && continueItems.length>3 &&  <CardRail title="Continue Watching" icon={Clock} items={continueItems} cardVariant="continue" delay={0} seeAllHref="/browse/trending" />}
       {isSuccess &&  <CardRail title="Top 10 Today" icon={Trophy} items={trending} cardVariant="numbered" delay={0.05} seeAllHref="/browse/trending" />}
       <CommunitySection/>
       {isSuccess &&  <CardRail title="Trending Now" icon={TrendingUp} items={trending} cardVariant="poster" seeAllHref="/browse/trending" seeAllHref="/browse/trending" />}

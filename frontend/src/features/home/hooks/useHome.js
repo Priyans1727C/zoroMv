@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome,fetchById, fetchCasts, fetchSeasonEpisodes } from "../api/tmdbService";
+import { fetchTrendingHome ,fetchMoviesHome, fetchSeriesHome, featchSearchHome,fetchById, fetchCasts, fetchSeasonEpisodes, fetchTrailer } from "../api/tmdbService";
 import { fetchTrendingByPage, fetchMoviesByPage, fetchSeriesByPage } from "../api/tmdbService";
 import { trendingMapper,searchMapper } from "../../shared/mapper/home";
 import { cardDetailMapper,castMapper,episodeMapper } from "../../shared/mapper/shared";
@@ -165,3 +165,20 @@ export const useSearchByPage = (input, page = 1) => {
     gcTime: 60_000,
   });
 };
+
+
+
+export const useFetchTrailer = (mediaType,id) => {
+  return useQuery({
+    queryKey:['trailer',mediaType,id],
+    queryFn: () => fetchTrailer(mediaType,id),
+    select: (response) => response.results.find(
+                                              (video) =>
+                                                video.type === 'Trailer' &&
+                                                video.official === true &&
+                                                video.site === 'YouTube'
+                          ) ?? null,
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
+  })
+}

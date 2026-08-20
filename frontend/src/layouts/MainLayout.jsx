@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet,useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { motion } from "framer-motion";
 import TopBar from "./components/Topbar";
 import MobileNav from "./components/MobileNav";
@@ -25,13 +25,13 @@ export default function MainLayout() {
 
       <div className="mx-auto flex max-w-[1600px] gap-6 p-3 sm:p-4 lg:p-6">
         <Sidebar />
-         <MobileNav
-                  open={menuOpen}
-                  onToggle={() => setMenuOpen((v) => !v)}
-                  onClose={() => setMenuOpen(false)}
-                />
-        
-       
+        <MobileNav
+          open={menuOpen}
+          onToggle={() => setMenuOpen((v) => !v)}
+          onClose={() => setMenuOpen(false)}
+        />
+
+
         <main className="relative flex min-w-0 flex-1 flex-col gap-5 sm:gap-6 pt-16 lg:pt-0">
           {/* Sticky desktop header. Small screens use the Dynamic Island navbar. */}
           <TopBar
@@ -51,8 +51,12 @@ export default function MainLayout() {
             <Outlet />
           </motion.div>
 
-          <footer className="border-t border-border pt-6 pb-2 text-xs text-muted-foreground">
-            © 2026 ZoroMv — all artwork rendered as skeleton placeholders.
+          <footer className="border-t border-border pb-2  text-xs text-muted-foreground">
+            <p>
+              © 2026 ZoroMv — A movie & series streaming experience created by
+              <span className="font-medium text-foreground"> Priyanshu Singh</span>.
+              This web app is currently under development.
+            </p>
           </footer>
         </main>
       </div>

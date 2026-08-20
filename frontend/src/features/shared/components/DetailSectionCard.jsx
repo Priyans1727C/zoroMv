@@ -27,8 +27,7 @@ const fade = (delay = 0) => ({
 const CIRCLE_RADIUS = 42;
 const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS;
 
-const TRAILER_URL =
-  "https://www.youtube.com/embed/hHmA-Tg4Juo?autoplay=1&origin=https%3A%2F%2Fwww.themoviedb.org&hl=en&modestbranding=1&fs=1&autohide=1";
+const TRAILER_BASE_URL = "https://www.youtube.com/embed/";
 
 /* ─────────────────────────── Hero ─────────────────────────── */
 
@@ -150,7 +149,7 @@ export const HeroCard = memo(function HeroCard({ slide, onTrailerOpen }) {
 
 /* ─────────────────── Inline Trailer Player ─────────────────── */
 
-const TrailerPlayer = memo(function TrailerPlayer({ title, onClose }) {
+const TrailerPlayer = memo(function TrailerPlayer({ title, videoKey, onClose }) {
   return (
     <div className="absolute inset-0 flex flex-col bg-background">
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-3 sm:py-4">
@@ -169,7 +168,7 @@ const TrailerPlayer = memo(function TrailerPlayer({ title, onClose }) {
       </div>
       <div className="flex-1">
         <iframe
-          src={TRAILER_URL}
+          src={TRAILER_BASE_URL+videoKey}
           title="Official Trailer"
           className="h-full w-full"
           allow="autoplay; encrypted-media; picture-in-picture"
@@ -182,7 +181,7 @@ const TrailerPlayer = memo(function TrailerPlayer({ title, onClose }) {
 
 /* ─────────────────── Hero Section (owner) ─────────────────── */
 
-export function HeroSection({ slide }) {
+export function HeroSection({ slide ,trailer}) {
   const [trailerOpen, setTrailerOpen] = useState(false);
 
   const openTrailer = useCallback(() => setTrailerOpen(true), []);
@@ -205,7 +204,7 @@ export function HeroSection({ slide }) {
             transition={{ duration: 0.3 }}
             className="absolute inset-0"
           >
-            <TrailerPlayer title={slide.title} onClose={closeTrailer} />
+            <TrailerPlayer title={slide.title} videoKey={trailer.key} onClose={closeTrailer} />
           </motion.div>
         ) : (
           <motion.div

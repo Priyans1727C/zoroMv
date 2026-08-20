@@ -181,14 +181,6 @@ export function PosterCard({ item, index = 0 }) {
 }
 
 
-
-
-
-
-
-
-
-
 /* ─── Numbered Card (Top-10 style with bottom-left corner notch + badge) ─── */
 export function NumberedCard({ item, index = 0 }) {
   // Sizing constants used by the notch geometry — the corner radius that
@@ -261,7 +253,9 @@ export function NumberedCard({ item, index = 0 }) {
           )}
         </div>
 
+
         {/* Center play button */}
+         <Link to={`/find/${item.type}/fixing-needed-${item.id}`}>
         <div className="absolute inset-0 z-10 flex items-center justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -271,6 +265,7 @@ export function NumberedCard({ item, index = 0 }) {
             <Play className="h-5 w-5 fill-current" />
           </motion.button>
         </div>
+        </Link>
 
         {/* Title strip pinned above the notch (right side) */}
        <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-end p-3 pl-[76px]">

@@ -57,3 +57,10 @@ export const fetchSeriesByPage = async (category="popular",page=1) => {
   const {data} = await tmdbApi.get(`/tv/${category}`,{params:{page:page}});
   return data;
 }
+
+
+
+export const fetchTrailer = async (mediaType,id) =>{
+  const {data} = await tmdbApi.get(`/${mediaType}/${id}/videos`);
+  return data;
+}
