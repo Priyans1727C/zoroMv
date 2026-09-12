@@ -226,8 +226,8 @@ export const SERIES_COMMENTS = [
       ms: 45,  category: "all",
       build: ({ id, mediaType, season, episode }) =>
         mediaType === "tv"
-          ? `https://screenscape.me//embed?tmdb=${id}&type=tv&s=${season}&e=${episode}&lan=hindi`
-          : `https://screenscape.me//embed?tmdb=${id}&type=movie&lan=hindi`,
+          ? `https://screenscape.me/embed?tmdb=${id}&type=tv&s=${season}&e=${episode}&lan=hindi`
+          : `https://screenscape.me/embed?tmdb=${id}&type=movie&lan=hindi`,
     },
   
 
